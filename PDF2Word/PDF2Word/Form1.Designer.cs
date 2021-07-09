@@ -30,13 +30,14 @@ namespace PDF2Word
         private void InitializeComponent()
         {
             this.panelInput = new System.Windows.Forms.Panel();
-            this.panelOutput = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtInput = new System.Windows.Forms.TextBox();
             this.btnInput = new System.Windows.Forms.Button();
+            this.txtInput = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panelOutput = new System.Windows.Forms.Panel();
             this.btnOutputpath = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtOutpath = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnConvert = new System.Windows.Forms.Button();
             this.panelInput.SuspendLayout();
             this.panelOutput.SuspendLayout();
             this.SuspendLayout();
@@ -52,16 +53,25 @@ namespace PDF2Word
             this.panelInput.Size = new System.Drawing.Size(1098, 131);
             this.panelInput.TabIndex = 0;
             // 
-            // panelOutput
+            // btnInput
             // 
-            this.panelOutput.Controls.Add(this.btnOutputpath);
-            this.panelOutput.Controls.Add(this.textBox1);
-            this.panelOutput.Controls.Add(this.label2);
-            this.panelOutput.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelOutput.Location = new System.Drawing.Point(0, 131);
-            this.panelOutput.Name = "panelOutput";
-            this.panelOutput.Size = new System.Drawing.Size(1098, 158);
-            this.panelOutput.TabIndex = 1;
+            this.btnInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.btnInput.Location = new System.Drawing.Point(747, 61);
+            this.btnInput.Name = "btnInput";
+            this.btnInput.Size = new System.Drawing.Size(186, 36);
+            this.btnInput.TabIndex = 2;
+            this.btnInput.Text = "Choose file";
+            this.btnInput.UseVisualStyleBackColor = true;
+            this.btnInput.Click += new System.EventHandler(this.btnInput_Click);
+            // 
+            // txtInput
+            // 
+            this.txtInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.txtInput.Location = new System.Drawing.Point(240, 58);
+            this.txtInput.Name = "txtInput";
+            this.txtInput.ReadOnly = true;
+            this.txtInput.Size = new System.Drawing.Size(452, 27);
+            this.txtInput.TabIndex = 1;
             // 
             // label1
             // 
@@ -73,24 +83,16 @@ namespace PDF2Word
             this.label1.TabIndex = 0;
             this.label1.Text = "File:";
             // 
-            // txtInput
+            // panelOutput
             // 
-            this.txtInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.txtInput.Location = new System.Drawing.Point(240, 58);
-            this.txtInput.Name = "txtInput";
-            this.txtInput.Size = new System.Drawing.Size(452, 27);
-            this.txtInput.TabIndex = 1;
-            // 
-            // btnInput
-            // 
-            this.btnInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.btnInput.Location = new System.Drawing.Point(747, 61);
-            this.btnInput.Name = "btnInput";
-            this.btnInput.Size = new System.Drawing.Size(186, 36);
-            this.btnInput.TabIndex = 2;
-            this.btnInput.Text = "Choose file";
-            this.btnInput.UseVisualStyleBackColor = true;
-            this.btnInput.Click += new System.EventHandler(this.btnInput_Click);
+            this.panelOutput.Controls.Add(this.btnOutputpath);
+            this.panelOutput.Controls.Add(this.txtOutpath);
+            this.panelOutput.Controls.Add(this.label2);
+            this.panelOutput.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelOutput.Location = new System.Drawing.Point(0, 131);
+            this.panelOutput.Name = "panelOutput";
+            this.panelOutput.Size = new System.Drawing.Size(1098, 158);
+            this.panelOutput.TabIndex = 1;
             // 
             // btnOutputpath
             // 
@@ -103,13 +105,14 @@ namespace PDF2Word
             this.btnOutputpath.UseVisualStyleBackColor = true;
             this.btnOutputpath.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox1
+            // txtOutpath
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.textBox1.Location = new System.Drawing.Point(240, 66);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(452, 27);
-            this.textBox1.TabIndex = 4;
+            this.txtOutpath.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.txtOutpath.Location = new System.Drawing.Point(240, 66);
+            this.txtOutpath.Name = "txtOutpath";
+            this.txtOutpath.ReadOnly = true;
+            this.txtOutpath.Size = new System.Drawing.Size(452, 27);
+            this.txtOutpath.TabIndex = 4;
             // 
             // label2
             // 
@@ -121,11 +124,23 @@ namespace PDF2Word
             this.label2.TabIndex = 3;
             this.label2.Text = "Output path:";
             // 
+            // btnConvert
+            // 
+            this.btnConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.btnConvert.Location = new System.Drawing.Point(347, 342);
+            this.btnConvert.Name = "btnConvert";
+            this.btnConvert.Size = new System.Drawing.Size(287, 87);
+            this.btnConvert.TabIndex = 2;
+            this.btnConvert.Text = "CONVERT";
+            this.btnConvert.UseVisualStyleBackColor = true;
+            this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
+            // 
             // App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1098, 456);
+            this.Controls.Add(this.btnConvert);
             this.Controls.Add(this.panelOutput);
             this.Controls.Add(this.panelInput);
             this.Name = "App";
@@ -146,8 +161,9 @@ namespace PDF2Word
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelOutput;
         private System.Windows.Forms.Button btnOutputpath;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtOutpath;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnConvert;
     }
 }
 

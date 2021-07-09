@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,28 +20,39 @@ namespace PDF2Word
 
         private void btnInput_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog()) { Filter = "PDF files | *.pdf" }
+            
             {
-                if(ofd.ShowDialog() == DialogResult.OK)
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Filter = "PDF files | *.pdf";
+                if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    txtInput.Text = ofd.FileName;
+                    string filePath = ofd.FileName;
+                    txtInput.Text = filePath;
                 }
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (var fbd = new FolderBrowserDialog())
-            {
-                DialogResult result = fbd.ShowDialog();
+            FolderBrowserDialog folder = new FolderBrowserDialog();
+            folder.ShowDialog();
+            string folderPath = folder.SelectedPath;
+            txtOutpath.Text = folderPath;
+        }
 
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    string[] files = Directory.GetFiles(fbd.SelectedPath);
-                    
-                    System.Windows.Forms.MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
-                }
+        private void btnConvert_Click(object sender, EventArgs e)
+        {
+            SautinSoft.PdfFocus f = new SautinSoft.PdfFocus();
+            string filePDF = txtInput.Text;
+            string folder = txtOutpath.Text;
+            string wordFileName = folder + "AppConverted_TO_WORDFILE.docx";
+            f.OpenPdf(filePDF);
+            if (f.PageCount > 0)
+            {
+                f.WordOptions.Format = SautinSoft.PdfFocus.CWordOptions.eWordDocument.Docx;
+                f.ToWord(wordFileName);
             }
+            MessageBox.Show("Thành công","Success",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
     }
 }
